@@ -68,7 +68,11 @@ export default function GalleryPage() {
                                 >
                                     {/* Placeholder for Image - in real app use next/image */}
                                     <div className="absolute inset-0 bg-gray-200 dark:bg-zinc-800 flex items-center justify-center text-gray-400 group-hover:scale-105 transition-transform duration-500">
-                                        <span className="text-lg font-medium">[Image: {img.src}]</span>
+                                        <img
+                                            src={img.src}
+                                            alt={img.caption[locale as 'th' | 'en']}
+                                            className="w-full h-full object-cover"
+                                        />
                                     </div>
 
                                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">

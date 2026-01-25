@@ -2,7 +2,7 @@
     {
         "id": "1",
         "slug": "phra-kru-serm",
-        "image": "/images/monks/abbott.jpg",
+        "image": "/images/monks/abbott.png",
         "name": {
             "th": "พระครูเสริมรังษี (สมพงษ์ สุธมฺโม)",
             "en": "Phra Kru Sermrangsi (Sompong Suthammo)"
@@ -19,7 +19,7 @@
     {
         "id": "2",
         "slug": "phra-maha-somchai",
-        "image": "/images/monks/monk2.jpg",
+        "image": "/images/monks/monk2.png",
         "name": {
             "th": "พระมหาสมชาย ฐานวโร",
             "en": "Phra Maha Somchai Thanawaro"

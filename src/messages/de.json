@@ -1,0 +1,146 @@
+{
+    "Navbar": {
+        "home": "Startseite",
+        "about": "Über Uns",
+        "events": "Veranstaltungen",
+        "visit": "Besuch",
+        "gallery": "Galerie",
+        "contact": "Kontakt",
+        "monks": "Mönchschronik"
+    },
+    "Footer": {
+        "aboutUs": "Über Uns",
+        "events": "Veranstaltungen",
+        "donate": "Spenden",
+        "contactUs": "Kontakt",
+        "quickLinks": "Schnelllinks",
+        "contactInfo": "Kontaktinformationen",
+        "address": "Adresse",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "privacy": "Datenschutzerklärung",
+        "impressum": "Impressum"
+    },
+    "HeroSection": {
+        "welcomeTo": "Willkommen bei",
+        "inLocation": "in Washington D.C.",
+        "viewEvents": "Veranstaltungen ansehen",
+        "donate": "Spenden"
+    },
+    "WelcomeSection": {
+        "welcome": "Willkommen",
+        "description": "Wat Serm Rangsi dient als spirituelles Zentrum für die thailändische buddhistische Gemeinschaft im Großraum Washington D.C. Unsere Mission ist es, die Lehren Buddhas (Dhamma) zu verbreiten und das thailändische Kulturerbe für zukünftige Generationen zu bewahren.",
+        "meditation": "Meditation",
+        "meditationDesc": "Achtsamkeitsübung",
+        "sundaySchool": "Sonntagsschule",
+        "sundaySchoolDesc": "Buddhistische Bildung",
+        "culture": "Kulturelle Veranstaltungen",
+        "cultureDesc": "Thailändische Traditionen"
+    },
+    "DonationSection": {
+        "title": "Unterstützen Sie Wat Serm Rangsi",
+        "subtitle": "Spende tätigen",
+        "description": "Ihre Spenden unterstützen die Instandhaltung des Tempels, buddhistische Aktivitäten und Bildungsprogramme für Jugendliche.",
+        "donateOnline": "Online spenden",
+        "contactUs": "Kontaktieren Sie uns",
+        "channels": "Spendenkanäle",
+        "zelleDesc": "Spenden über Zelle (US Bank)",
+        "scanQr": "QR-Code scannen (Thai Bank)",
+        "clickToView": "Klicken zum Anzeigen des QR-Codes"
+    },
+    "EventsSection": {
+        "title": "Kommende Veranstaltungen",
+        "subtitle": "Kommende Veranstaltungen & Zeremonien",
+        "viewAll": "Alle ansehen",
+        "readMore": "Mehr Details"
+    },
+    "AboutPage": {
+        "title": "Über Wat Serm Rangsi",
+        "subtitle": "Geschichte & Vision",
+        "historyTitle": "Geschichte",
+        "visionTitle": "Vision",
+        "vision1": "Verbreitung des Buddhismus und der Dhamma-Lehren",
+        "vision2": "Bewahrung der thailändischen Kultur und Traditionen",
+        "vision3": "Zentrum für Lernen und Meditationspraxis",
+        "missionTitle": "Mission",
+        "missionDesc": "Wir streben danach, durch religiöse Aktivitäten, Bildung und sozialen Dienst eine friedliche, glückliche und weise Gesellschaft zu schaffen."
+    },
+    "ContactPage": {
+        "title": "Kontaktieren Sie uns",
+        "subtitle": "Schreiben Sie uns",
+        "infoTitle": "Kontaktinformationen",
+        "address": "Adresse",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "formTitle": "Nachricht senden",
+        "fullName": "Vollständiger Name",
+        "subject": "Betreff",
+        "message": "Nachricht",
+        "sendMessage": "Nachricht senden"
+    },
+    "EventsPage": {
+        "title": "Veranstaltungen & Zeremonien",
+        "subtitle": "Kommende Veranstaltungen",
+        "readMore": "Weiterlesen",
+        "calendarView": "Kalenderansicht",
+        "listView": "Listenansicht"
+    },
+    "VisitPage": {
+        "title": "Besuchen Sie uns",
+        "subtitle": "Besucherinformationen",
+        "openingHours": "Öffnungszeiten",
+        "map": "Karte & Anfahrt",
+        "directions": "Wegbeschreibung",
+        "etiquette": "Tempel-Etikette",
+        "etiquetteDesc": "Richtlinien für den Besuch der heiligen Stätten",
+        "dressCode": "Kleiderordnung",
+        "dressCodeDesc": "Bitte kleiden Sie sich bescheiden",
+        "behavior": "Verhalten",
+        "behaviorDesc": "Bitte verhalten Sie sich ruhig und respektvoll",
+        "offerings": "Opfergaben",
+        "offeringsDesc": "Bitte informieren Sie das Personal...",
+        "publicTransport": "Öffentliche Verkehrsmittel",
+        "car": "Mit dem Auto"
+    },
+    "PrivacyPage": {
+        "title": "Datenschutzerklärung",
+        "lastUpdated": "Zuletzt aktualisiert"
+    },
+    "ImpressumPage": {
+        "title": "Impressum",
+        "companyName": "Organisationsname",
+        "address": "Adresse",
+        "contact": "Kontakt"
+    },
+    "Site": {
+        "name": "Wat Serm Rangsi"
+    },
+    "GalleryPage": {
+        "title": "Fotogalerie",
+        "subtitle": "Fotos von Veranstaltungen und Zeremonien",
+        "all": "Alle",
+        "ceremony": "Zeremonien",
+        "festival": "Feste",
+        "education": "Bildung",
+        "daily": "Tagesablauf"
+    },
+    "CookieConsent": {
+        "title": "Wir schätzen Ihre Privatsphäre",
+        "description": "Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern, personalisierte Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Durch Klicken auf \"Alle akzeptieren\" stimmen Sie unserer Verwendung von Cookies zu.",
+        "acceptAll": "ALLE AKZEPTIEREN",
+        "decline": "ABLEHNEN",
+        "readMore": "Lesen Sie unsere Datenschutzerklärung"
+    },
+    "MonksPage": {
+        "title": "Mönchschronik",
+        "subtitle": "Biografien unserer ehrwürdigen Mönche",
+        "backButton": "Zurück zur Mönchschronik"
+    },
+    "EventDetailPage": {
+        "relatedEvents": "Ähnliche Veranstaltungen",
+        "breadcrumbs": {
+            "home": "Startseite",
+            "events": "Veranstaltungen"
+        }
+    }
+}

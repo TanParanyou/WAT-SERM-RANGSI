@@ -6,6 +6,7 @@ export type LocalizedText = {
 export interface ScheduleItem {
     time: string;
     activity: LocalizedText;
+    day?: LocalizedText; // Optional: Group by day (e.g., "Day 1", "12 Feb")
 }
 
 export interface Event {
@@ -18,4 +19,6 @@ export interface Event {
     description: LocalizedText;
     schedule: ScheduleItem[];
     mapUrl: string;
+    order?: number;
+    active?: boolean;
 }

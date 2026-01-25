@@ -113,7 +113,8 @@
         "contact": "Contact"
     },
     "Site": {
-        "name": "Wat Serm Rangsi"
+        "name": "Wat Serm Rangsi",
+        "location": "Washington D.C."
     },
     "GalleryPage": {
         "title": "Photo Gallery",
@@ -133,6 +134,24 @@
     },
     "MonksPage": {
         "title": "Monks History",
-        "subtitle": "Biographies of our Venerable Monks"
+        "subtitle": "Biographies of our Venerable Monks",
+        "backButton": "Back to Monks History"
+    },
+    "EventDetailPage": {
+        "relatedEvents": "Related Events",
+        "breadcrumbs": {
+            "home": "Home",
+            "events": "Events"
+        }
+    },
+    "EventPrinter": {
+        "title": "Wat Serm Rangsi",
+        "subtitle": "Official Event Schedule",
+        "scheduleTitle": "Schedule",
+        "time": "Time",
+        "activity": "Activity",
+        "footerTitle": "Wat Serm Rangsi - Washington D.C.",
+        "printedOn": "Printed on",
+        "printButton": "Print PDF"
     }
 }

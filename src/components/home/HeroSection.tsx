@@ -16,7 +16,7 @@ export default function HeroSection() {
             <div
                 className="absolute inset-0 z-0 bg-cover bg-center"
                 style={{
-                    backgroundImage: 'url(/images/hero-bg.jpg)',
+                    backgroundImage: 'url(/images/hero-bg.png)',
                 }}
             >
                 {/* Overlay */}

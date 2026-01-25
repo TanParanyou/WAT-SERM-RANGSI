@@ -1,6 +1,8 @@
 [
     {
         "id": 1,
+        "order": 1,
+        "active": true,
         "title": {
             "th": "พิธีทำบุญตักบาตรวันมาฆบูชา",
             "en": "Makha Bucha Day Ceremony"
@@ -11,7 +13,7 @@
             "th": "ศาลาการเปรียญ",
             "en": "Main Hall"
         },
-        "image": "/images/event-makha.jpg",
+        "image": "/images/event-makha.png",
         "description": {
             "th": "ขอเชิญพุทธศาสนิกชนร่วมทำบุญตักบาตร ฟังพระธรรมเทศนา และเวียนเทียน เนื่องในวันมาฆบูชา",
             "en": "Join us for merit-making, listening to Dhamma talks, and candlelight procession on Makha Bucha Day."
@@ -57,6 +59,8 @@
     },
     {
         "id": 2,
+        "order": 2,
+        "active": true,
         "title": {
             "th": "ปฏิบัติธรรมประจำเดือน",
             "en": "Monthly Meditation Retreat"
@@ -67,13 +71,17 @@
             "th": "อาคารวิปัสสนา",
             "en": "Meditation Center"
         },
-        "image": "/images/event-meditation.jpg",
+        "image": "/images/event-meditation.png",
         "description": {
             "th": "โครงการอบรมวิปัสสนากรรมฐานเบื้องต้น สำหรับบุคคลทั่วไป ไม่มีค่าใช้จ่าย",
             "en": "Introductory Vipassana meditation workshop for beginners. Free of charge."
         },
         "schedule": [
             {
+                "day": {
+                    "th": "วันที่ 1 - การเริ่มต้น",
+                    "en": "Day 1 - The Beginning"
+                },
                 "time": "08:30",
                 "activity": {
                     "th": "ลงทะเบียน",
@@ -81,6 +89,10 @@
                 }
             },
             {
+                "day": {
+                    "th": "วันที่ 1 - การเริ่มต้น",
+                    "en": "Day 1 - The Beginning"
+                },
                 "time": "09:00",
                 "activity": {
                     "th": "ปฐมนิเทศและสวดมนต์เช้า",
@@ -88,6 +100,10 @@
                 }
             },
             {
+                "day": {
+                    "th": "วันที่ 1 - การเริ่มต้น",
+                    "en": "Day 1 - The Beginning"
+                },
                 "time": "10:00",
                 "activity": {
                     "th": "ปฏิบัติเดินจงกรมและนั่งสมาธิ",
@@ -95,6 +111,10 @@
                 }
             },
             {
+                "day": {
+                    "th": "วันที่ 1 - การเริ่มต้น",
+                    "en": "Day 1 - The Beginning"
+                },
                 "time": "12:00",
                 "activity": {
                     "th": "พักรับประทานอาหารกลางวัน",
@@ -102,6 +122,21 @@
                 }
             },
             {
+                "day": {
+                    "th": "วันที่ 2 - การปฏิบัติ",
+                    "en": "Day 2 - Practice"
+                },
+                "time": "05:00",
+                "activity": {
+                    "th": "ตื่นนอนและปฏิบัติส่วนตัว",
+                    "en": "Wake up and personal practice"
+                }
+            },
+            {
+                "day": {
+                    "th": "วันที่ 2 - การปฏิบัติ",
+                    "en": "Day 2 - Practice"
+                },
                 "time": "13:00",
                 "activity": {
                     "th": "ธรรมบรรยาย",
@@ -109,6 +144,10 @@
                 }
             },
             {
+                "day": {
+                    "th": "วันที่ 2 - การปฏิบัติ",
+                    "en": "Day 2 - Practice"
+                },
                 "time": "16:00",
                 "activity": {
                     "th": "สวดมนต์เย็นและแผ่เมตตา",
@@ -120,6 +159,8 @@
     },
     {
         "id": 3,
+        "order": 3,
+        "active": true,
         "title": {
             "th": "งานเทศกาลสงกรานต์",
             "en": "Songkran Festival"
@@ -130,7 +171,7 @@
             "th": "ลานวัด",
             "en": "Temple Grounds"
         },
-        "image": "/images/event-songkran.jpg",
+        "image": "/images/event-songkran.png",
         "description": {
             "th": "สืบสานประเพณีไทย สรงน้ำพระ รดน้ำดำหัวผู้สูงอายุ และการแสดงทางวัฒนธรรม",
             "en": "Celebrate Thai New Year with Buddha bathing ceremony, paying respect to elders, and cultural performances."

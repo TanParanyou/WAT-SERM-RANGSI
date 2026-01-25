@@ -7,10 +7,12 @@ import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link, usePathname, useRouter } from '@/navigation';
+import { routing } from '@/routing';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
     const t = useTranslations('Navbar');
     const tSite = useTranslations('Site');
@@ -20,6 +22,7 @@ export default function Navbar() {
     const router = useRouter();
 
     useEffect(() => {
+        setMounted(true);
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
         };
@@ -46,7 +49,9 @@ export default function Navbar() {
     ];
 
     const toggleLanguage = () => {
-        const nextLocale = locale === 'th' ? 'en' : 'th';
+        const currentIndex = routing.locales.indexOf(locale as any);
+        const nextIndex = (currentIndex + 1) % routing.locales.length;
+        const nextLocale = routing.locales[nextIndex];
         router.replace(pathname, { locale: nextLocale });
     };
 
@@ -84,7 +89,7 @@ export default function Navbar() {
                         </span>
                         <span className={`text-[10px] uppercase tracking-widest font-medium opacity-80 ${scrolled || isOpen ? 'text-gray-500 dark:text-gray-400' : 'text-white/80'
                             }`}>
-                            Bangkok, Thailand
+                            {tSite('location')}
                         </span>
                     </div>
                 </Link>
@@ -126,9 +131,18 @@ export default function Navbar() {
                             ? 'bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700'
                             : 'bg-white/10 text-white hover:bg-white/20 backdrop-blur-md'
                             }`}
+                        aria-label="Toggle Theme"
                     >
-                        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                        {!mounted ? (
+                            <div className="w-5 h-5" /> // Placeholder to prevent layout shift
+                        ) : theme === 'dark' ? (
+                            <Sun size={20} />
+                        ) : (
+                            <Moon size={20} />
+                        )}
                     </button>
+
+
 
                     <button
                         onClick={toggleLanguage}
@@ -205,7 +219,13 @@ export default function Navbar() {
                                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                                     className="p-2 rounded-xl bg-white dark:bg-zinc-800 shadow-sm border border-gray-100 dark:border-gray-700"
                                 >
-                                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                                    {!mounted ? (
+                                        <div className="w-5 h-5" />
+                                    ) : theme === 'dark' ? (
+                                        <Sun size={20} />
+                                    ) : (
+                                        <Moon size={20} />
+                                    )}
                                 </button>
                             </div>
 
@@ -217,7 +237,7 @@ export default function Navbar() {
                                 className="w-full py-4 rounded-2xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
                             >
                                 <Globe size={20} />
-                                Switch to {locale === 'th' ? 'English' : 'Thai'}
+                                Switch Language ({locale.toUpperCase()})
                             </button>
                         </motion.div>
                     </motion.div>

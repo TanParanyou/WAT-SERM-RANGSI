@@ -1,33 +1,75 @@
-
-import { Calendar, Clock, MapPin, ArrowLeft, CalendarPlus, Navigation } from 'lucide-react';
+import { Calendar, Clock, MapPin, ArrowLeft, CalendarPlus, Navigation, Share2 } from 'lucide-react';
+import { Fragment } from 'react';
 import { Link } from '@/navigation';
 import events from '@/data/events.json';
 import { getLocalizedText } from '@/utils/i18n';
 import { Event } from '@/types/common';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import Script from 'next/script';
+import { getTranslations, getFormatter } from 'next-intl/server';
 
 // Define Props for Server Component in Next.js 15
 interface Props {
     params: Promise<{ id: string; locale: string }>;
 }
 
+
 import PageHeader from '@/components/layout/PageHeader';
 import PageContainer from '@/components/layout/PageContainer';
+import ShareButton from '@/components/common/ShareButton';
+import PageBreadcrumbs from '@/components/common/PageBreadcrumbs';
+import EventPrinter from '@/components/events/EventPrinter';
+
+export async function generateStaticParams() {
+    return events.flatMap((event) => [
+        { id: event.id.toString(), locale: 'en' },
+        { id: event.id.toString(), locale: 'th' },
+    ]);
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id, locale } = await params;
+    const eventId = Number(id);
+    const event = events.find((e) => e.id === eventId);
+
+    if (!event) {
+        return {
+            title: 'Event Not Found',
+        };
+    }
+
+    const title = getLocalizedText(event.title, locale);
+    const description = getLocalizedText(event.description, locale);
+
+    return {
+        title: `${title} - Wat Serm Rangsi`,
+        description: description,
+        openGraph: {
+            title: title,
+            description: description,
+            images: [event.image],
+            type: 'article',
+        },
+    };
+}
 
 export default async function EventDetailPage({ params }: Props) {
     const { id, locale } = await params;
     const eventId = Number(id);
     const event = events.find(e => e.id === eventId) as Event | undefined;
+    const t = await getTranslations('EventDetailPage');
+    const tEvents = await getTranslations('EventsSection');
+    const format = await getFormatter();
 
     if (!event) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-4">
-                <h1 className="text-2xl font-bold mb-4">Event Not Found (ID: {id})</h1>
-                <Link href="/events" className="text-primary hover:underline">
-                    Back to Events
-                </Link>
-            </div>
-        );
+        notFound();
     }
+
+    // Related Events Logic
+    const relatedEvents = events
+        .filter(e => e.id !== event.id)
+        .slice(0, 3);
 
     const getGoogleCalendarUrl = (e: Event) => {
         const title = encodeURIComponent(getLocalizedText(e.title, 'en'));
@@ -41,14 +83,42 @@ export default async function EventDetailPage({ params }: Props) {
         return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${startDate}/${endDate}`;
     };
 
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: getLocalizedText(event.title, locale),
+        startDate: event.date, // Note: In production, ISO format with time is better
+        endDate: event.date,
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+            '@type': 'Place',
+            name: getLocalizedText(event.location, locale),
+            address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Wat Serm Rangsi',
+                addressLocality: 'Bangkok',
+                addressCountry: 'TH'
+            }
+        },
+        image: [event.image],
+        description: getLocalizedText(event.description, locale),
+    };
+
     return (
         <div className="bg-zinc-50 dark:bg-zinc-950 min-h-screen pb-20">
+            <Script
+                id="event-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+
             <PageHeader
                 title={getLocalizedText(event.title, locale)}
             >
                 <div className="flex flex-wrap items-center justify-center gap-4 text-white opacity-90 text-sm md:text-base">
                     <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/10">
-                        <Calendar size={18} /> {event.date}
+                        <Calendar size={18} /> {format.dateTime(new Date(event.date), { dateStyle: 'long' })}
                     </span>
                     <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/10">
                         <MapPin size={18} /> {getLocalizedText(event.location, locale)}
@@ -57,13 +127,33 @@ export default async function EventDetailPage({ params }: Props) {
             </PageHeader>
 
             <PageContainer>
-                <Link
-                    href="/events"
-                    className="inline-flex items-center gap-2 text-gray-500 hover:text-primary mb-8 transition-colors font-medium group"
-                >
-                    <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-                    Back to Events
-                </Link>
+                {/* Navigation & Actions Card */}
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl p-4 shadow-lg shadow-black/5 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    {/* Breadcrumbs & Back */}
+                    <div className="flex flex-col gap-2">
+                        <div className="">
+                            <PageBreadcrumbs
+                                items={[
+                                    { label: t('breadcrumbs.events'), href: '/events' },
+                                    { label: getLocalizedText(event.title, locale), active: true }
+                                ]}
+                            />
+                        </div>
+                        <Link
+                            href="/events"
+                            className="inline-flex items-center gap-2 text-gray-500 hover:text-primary transition-colors font-medium group w-fit"
+                        >
+                            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+                            Back to Events
+                        </Link>
+                    </div>
+
+                    {/* Share Button & Print */}
+                    <div className="flex items-center gap-4 border-t md:border-t-0 md:border-l border-gray-100 dark:border-gray-800 pt-4 md:pt-0 md:pl-6">
+                        <EventPrinter event={event} locale={locale} />
+                        <ShareButton />
+                    </div>
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Content (Left Column) */}
@@ -71,7 +161,11 @@ export default async function EventDetailPage({ params }: Props) {
                         {/* Image & Description */}
                         <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800">
                             <div className="aspect-video bg-gray-200 dark:bg-zinc-800 flex items-center justify-center text-gray-400 relative">
-                                <span className="text-lg font-medium">[Image: {event.image}]</span>
+                                <img
+                                    src={event.image}
+                                    alt={getLocalizedText(event.title, locale)}
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
 
                             <div className="p-8 md:p-10">
@@ -99,16 +193,31 @@ export default async function EventDetailPage({ params }: Props) {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                                            {event.schedule.map((item, idx) => (
-                                                <tr key={idx} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
-                                                    <td className="py-4 px-4 font-bold text-primary font-mono whitespace-nowrap align-top">
-                                                        {item.time}
-                                                    </td>
-                                                    <td className="py-4 px-4 text-gray-700 dark:text-gray-300">
-                                                        {getLocalizedText(item.activity, locale)}
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                            {event.schedule.map((item, idx) => {
+                                                const currentDay = item.day ? getLocalizedText(item.day, locale) : null;
+                                                const previousDay = idx > 0 && event.schedule[idx - 1].day ? getLocalizedText(event.schedule[idx - 1].day!, locale) : null;
+                                                const showDayHeader = currentDay && currentDay !== previousDay;
+
+                                                return (
+                                                    <Fragment key={idx}>
+                                                        {showDayHeader && (
+                                                            <tr className="bg-zinc-50/80 dark:bg-zinc-800/50">
+                                                                <td colSpan={2} className="py-3 px-4 font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider pl-4 border-l-4 border-primary/50">
+                                                                    {currentDay}
+                                                                </td>
+                                                            </tr>
+                                                        )}
+                                                        <tr className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
+                                                            <td className="py-4 px-4 font-bold text-primary font-mono whitespace-nowrap align-top w-32">
+                                                                {item.time}
+                                                            </td>
+                                                            <td className="py-4 px-4 text-gray-700 dark:text-gray-300">
+                                                                {getLocalizedText(item.activity, locale)}
+                                                            </td>
+                                                        </tr>
+                                                    </Fragment>
+                                                );
+                                            })}
                                         </tbody>
                                     </table>
                                 </div>
@@ -129,7 +238,7 @@ export default async function EventDetailPage({ params }: Props) {
                                     </div>
                                     <div>
                                         <p className="text-xs text-gray-500 uppercase font-bold mb-1">Date</p>
-                                        <p className="font-medium">{event.date}</p>
+                                        <p className="font-medium">{format.dateTime(new Date(event.date), { dateStyle: 'long' })}</p>
                                     </div>
                                 </div>
 
@@ -194,6 +303,54 @@ export default async function EventDetailPage({ params }: Props) {
                                 )}
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Related Events Section */}
+                <div className="mt-20 border-t border-gray-200 dark:border-gray-800 pt-16">
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white">
+                            {t('relatedEvents')}
+                        </h2>
+                        <Link href="/events" className="text-primary font-medium hover:underline">
+                            {tEvents('viewAll')}
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {relatedEvents.map((relatedEvent, index) => (
+                            <Link
+                                href={`/events/${relatedEvent.id}`}
+                                key={relatedEvent.id}
+                                className="bg-white dark:bg-zinc-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group block border border-gray-100 dark:border-gray-700"
+                            >
+                                <div className="h-40 bg-gray-200 dark:bg-zinc-700 relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-primary/10 flex items-center justify-center text-gray-400 group-hover:scale-105 transition-transform duration-500">
+                                        <img
+                                            src={relatedEvent.image}
+                                            alt={getLocalizedText(relatedEvent.title, locale)}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div className="absolute top-3 right-3 bg-white dark:bg-zinc-900 px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                                        {format.dateTime(new Date(relatedEvent.date), { dateStyle: 'medium' })}
+                                    </div>
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-heading font-bold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-1">
+                                        {getLocalizedText(relatedEvent.title, locale)}
+                                    </h3>
+                                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                        <Clock size={14} />
+                                        <span>{relatedEvent.time}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                                        <MapPin size={14} />
+                                        <span>{getLocalizedText(relatedEvent.location, locale)}</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </PageContainer>

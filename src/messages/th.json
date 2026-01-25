@@ -113,7 +113,8 @@
         "contact": "ข้อมูลติดต่อ"
     },
     "Site": {
-        "name": "วัดเสริมรังษี"
+        "name": "วัดเสริมรังษี",
+        "location": "วอชิงตัน ดี.ซี."
     },
     "GalleryPage": {
         "title": "คลังภาพกิจกรรม",
@@ -133,6 +134,24 @@
     },
     "MonksPage": {
         "title": "ทำเนียบพระสงฆ์",
-        "subtitle": "ประวัติพระสงฆ์วัดเสริมรังษี"
+        "subtitle": "ประวัติพระสงฆ์วัดเสริมรังษี",
+        "backButton": "กลับไปทำเนียบพระสงฆ์"
+    },
+    "EventDetailPage": {
+        "relatedEvents": "กิจกรรมที่น่าสนใจ",
+        "breadcrumbs": {
+            "home": "หน้าแรก",
+            "events": "กิจกรรม"
+        }
+    },
+    "EventPrinter": {
+        "title": "วัดเสริมรังษี",
+        "subtitle": "ตารางกิจกรรมบำเพ็ญกุศล",
+        "scheduleTitle": "กำหนดการ",
+        "time": "เวลา",
+        "activity": "กิจกรรม",
+        "footerTitle": "วัดเสริมรังษี - วอชิงตัน ดี.ซี.",
+        "printedOn": "พิมพ์เมื่อ",
+        "printButton": "พิมพ์ PDF"
     }
 }

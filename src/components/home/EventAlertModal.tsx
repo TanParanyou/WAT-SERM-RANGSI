@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations, useLocale, useFormatter } from 'next-intl';
 import { Link } from '@/navigation';
 import { X, Calendar, MapPin, Clock } from 'lucide-react';
 import events from '@/data/events.json';
@@ -13,6 +13,7 @@ export default function EventAlertModal() {
     const [upcomingEvent, setUpcomingEvent] = useState<typeof events[0] | null>(null);
     const t = useTranslations('EventsSection'); // Reusing translation namespace
     const locale = useLocale();
+    const format = useFormatter();
 
     useEffect(() => {
         const checkEvents = () => {
@@ -95,7 +96,7 @@ export default function EventAlertModal() {
                             {/* Date Badge */}
                             <div className="absolute bottom-4 left-4 bg-white dark:bg-zinc-950 px-3 py-1.5 rounded-full text-xs font-bold text-primary shadow-lg flex items-center gap-1.5">
                                 <Calendar size={14} />
-                                {upcomingEvent.date}
+                                {format.dateTime(new Date(upcomingEvent.date), { dateStyle: 'long' })}
                             </div>
                         </div>
 
